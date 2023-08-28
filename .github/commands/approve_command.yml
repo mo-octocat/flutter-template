@@ -21,9 +21,16 @@ steps:
           - label: "🟢 Normal"
           - label: "⚠️ Important"
           - label: "💥 Emergency"
+      - type: dropdown
+        attributes:
+          label: status
+          options:
+          - label: "🟢 Approved"
+          - label: "🔴 Rejected"
+          - label: "🟡 Requsted for more details"
       - type: textarea
         attributes:
-          label: Message
+          label: Justification
           placeholder: Additional details?
   # You can use slash commands to run GitHub Actions using repository_dispatch.
   # Any input provided to menus or forms will be available from your workflow.
@@ -34,5 +41,6 @@ steps:
   - type: fill
     template: |-
       Thank you for approving the request
-      Here is the approval details: {{data}}
-      And here is some information about the command: {{command}}
+      - **Request Priority**: {{ data.Priority }}
+      - **Approval Status**: {{ data.status }}
+      - **Justification**: {{ data.Justification }}
