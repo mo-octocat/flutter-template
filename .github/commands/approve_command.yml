@@ -1,0 +1,39 @@
+# Learn more about the syntax here:
+# https://docs.github.com/en/early-access/github/save-time-with-slash-commands/syntax-for-user-defined-slash-commands
+---
+trigger: aws_account_approve
+title: Approve
+# Works everywhere by default. Uncomment to limit it to certain surfaces.
+surfaces:
+  - issue
+description: Approve AWS Account Creation request
+
+# Each command has one or more steps. You can add up to 25 steps.
+steps:
+  # This displays a form with a dropdown, text input, and markdown editor.
+  - type: form
+    style: modal
+    body:
+      - type: dropdown
+        attributes:
+          label: Priority
+          options:
+          - label: "🟢 Normal"
+          - label: "⚠️ Important"
+          - label: "💥 Emergency"
+      - type: textarea
+        attributes:
+          label: Message
+          placeholder: Additional details?
+          required: false
+  # You can use slash commands to run GitHub Actions using repository_dispatch.
+  # Any input provided to menus or forms will be available from your workflow.
+  # - type: repository_dispatch
+  #   eventType: special_merge
+  # You can insert markdown into the markdown editor. The template property is
+  # processed as a Liquid template.
+  - type: fill
+    template: |-
+      Thank you for approving the request
+      Here is the approval details: {{data}}
+      And here is some information about the command: {{command}}
