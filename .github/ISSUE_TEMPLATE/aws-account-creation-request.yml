@@ -4,51 +4,52 @@ title: "[TEAM] - [ACCOUNT NAME]"
 labels: aws-account-request
 assignees: mouismail
 body:
-- type: checkboxes
+- type: dropdown
+  id: unit
+  validations:
+    required: true
   attributes:
-    label: Is there an existing issue for this?
-    description: Please search to see if an issue already exists for the bug you encountered.
+    label: Business Unit
+    description: What is your business unit?
     options:
-    - label: I have searched the existing issues
-      required: true
-- type: textarea
+      - Sales
+      - Engineering
+      - Service Delievery
+  render: markdown
+- type: input
+  id: service_name
   attributes:
-    label: Current Behavior
-    description: A concise description of what you're experiencing.
+    label: Service Name
+    description: Service Name
   validations:
-    required: false
-- type: textarea
+    required: true
+  render: markdown
+- type: dropdown
+  id: environment
+  validations:
+    required: true
   attributes:
-    label: Expected Behavior
-    description: A concise description of what you expected to happen.
-  validations:
-    required: false
-- type: textarea
+    label: Account Environment
+    description: What is AWS account environment purpose?
+    options:
+      - Development
+      - Staging
+      - Production
+  render: markdown
+- type: input
+  id: cost_center
   attributes:
-    label: Steps To Reproduce
-    description: Steps to reproduce the behavior.
-    placeholder: |
-      1. In this environment...
-      1. With this config...
-      1. Run '...'
-      1. See error...
+    label: Cost Center
+    description: Your cost center
   validations:
-    required: false
-- type: textarea
+    required: true
+  render: markdown
+- type: input
+  id: spend_limit
   attributes:
-    label: Environment
-    description: |
-      examples:
-        - **OS**: Ubuntu 20.04
-        - **Node**: 13.14.0
-        - **npm**: 7.6.3
-    value: |
-        - OS:
-        - Node:
-        - npm:
-    render: markdown
+    label: Spend limit
   validations:
-    required: false
+    required: true
 - type: textarea
   attributes:
     label: Anything else?
