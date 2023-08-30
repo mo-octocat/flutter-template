@@ -1,0 +1,28 @@
+name: Issue Approval Workflow
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  mention_for_approval:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Validate label and mention for approval
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        # Check if the issue has the specified label
+        LABEL_NAME="aws-account-request"
+        LABEL_CHECK=$(jq -r ".issue.labels[] | select(.name == \"$LABEL_NAME\")" "$GITHUB_EVENT_PATH")
+
+        if [ -n "$LABEL_CHECK" ]; then
+          COMMENT_BODY="Hey @mouismail, please review and approve this issue with the label \"$LABEL_NAME\"."
+          ISSUE_NUMBER=$(jq -r '.issue.number' "$GITHUB_EVENT_PATH")
+          echo "$COMMENT_BODY" | gh issue comment "$ISSUE_NUMBER" -R "$GITHUB_REPOSITORY" -t "$GITHUB_TOKEN"
+        fi
