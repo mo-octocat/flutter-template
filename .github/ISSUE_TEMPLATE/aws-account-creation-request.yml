@@ -15,7 +15,6 @@ body:
       - Sales
       - Engineering
       - Service Delievery
-  render: markdown
 - type: input
   id: service_name
   attributes:
@@ -23,7 +22,6 @@ body:
     description: Service Name
   validations:
     required: true
-  render: markdown
 - type: dropdown
   id: environment
   validations:
@@ -35,7 +33,6 @@ body:
       - Development
       - Staging
       - Production
-  render: markdown
 - type: input
   id: cost_center
   attributes:
@@ -43,7 +40,6 @@ body:
     description: Your cost center
   validations:
     required: true
-  render: markdown
 - type: input
   id: spend_limit
   attributes:
