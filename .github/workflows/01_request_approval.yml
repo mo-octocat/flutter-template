@@ -6,6 +6,9 @@ on:
       - opened
   workflow_dispatch:
 
+env:
+  NEW_REQUEST_LABEL_NAME="aws-account-request"
+  APPROVAL_REQUEST_LABEL_NAME="aws-account-approval"
 jobs:
   mention_for_approval:
     runs-on: ubuntu-latest
@@ -19,12 +22,12 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         # Check if the issue has the specified label
-        LABEL_NAME="aws-account-request"
-        LABEL_CHECK=$(jq -r ".issue.labels[] | select(.name == \"$LABEL_NAME\")" "$GITHUB_EVENT_PATH")
+        LABEL_CHECK=$(jq -r ".issue.labels[] | select(.name == \"$NEW_REQUEST_LABEL_NAME\")" "$GITHUB_EVENT_PATH")
 
         if [ -n "$LABEL_CHECK" ]; then
-          COMMENT_BODY="Hey @mouismail, please review and approve this issue with the label \"$LABEL_NAME\"."
+          COMMENT_BODY="Hey @mouismail, please review and approve this request \"$NEW_REQUEST_LABEL_NAME\"."
           ISSUE_NUMBER=$(jq -r '.issue.number' "$GITHUB_EVENT_PATH")
           gh issue comment "$ISSUE_NUMBER" -R "$GITHUB_REPOSITORY" -b "$COMMENT_BODY"
+          gh issue edit "$ISSUE_NUMBER" -R "$GITHUB_REPOSITORY" --remove-label "$NEW_REQUEST_LABEL_NAME" --add-label "$APPROVAL_REQUEST_LABEL_NAME"
         fi
       shell: bash
