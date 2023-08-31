@@ -40,10 +40,11 @@ jobs:
               team_slug: TEAM_ID,
               username: USERNAME
               });
+            echo(RESULT.data.state);
             return { is_member: RESULT.data.state };
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Add approved label
-        if: steps.check_issue.outputs.labeled == true && steps.check_team_membership.outputs.is_member == "active"
+        if: steps.check_issue.outputs.labeled == true && steps.check_team_membership.outputs.is_member == "member"
         uses: actions/github-script@v3
         with:
           script: |
