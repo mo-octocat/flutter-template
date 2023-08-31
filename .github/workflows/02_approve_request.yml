@@ -27,7 +27,7 @@ jobs:
               } else {
                 return { labeled: false };
                 }
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Check if actor is a member of the approval team
         id: check_team_membership
         uses: actions/github-script@v3
@@ -41,6 +41,7 @@ jobs:
               username: USERNAME
               });
             return { is_member: RESULT.data.state };
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Add approved label
         if: steps.check_issue.outputs.labeled == true && steps.check_team_membership.outputs.is_member == "active"
         uses: actions/github-script@v3
@@ -57,4 +58,4 @@ jobs:
                   labels: [process.env.APPROVED_LABEL_NAME]
                   });
                 }
-                github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
