@@ -9,7 +9,7 @@ on:
 env:
   NEW_REQUEST_LABEL_NAME: "aws-account-request"
   APPROVAL_REQUEST_LABEL_NAME: "aws-account-approval"
-  APPROVAL_TEAM: "aws-account-approval-team"
+  APPROVAL_TEAM: "mo-octocat/aws-account-approval-team"
 jobs:
   mention_for_approval:
     runs-on: ubuntu-latest
@@ -26,7 +26,7 @@ jobs:
         LABEL_CHECK=$(jq -r ".issue.labels[] | select(.name == \"$NEW_REQUEST_LABEL_NAME\")" "$GITHUB_EVENT_PATH")
 
         if [ -n "$LABEL_CHECK" ]; then
-          COMMENT_BODY="Hey @mouismail, please review and approve this request \"$NEW_REQUEST_LABEL_NAME\"."
+          COMMENT_BODY="Hey @\"$APPROVAL_REQUEST_LABEL_NAME\", please review and approve this request \"$NEW_REQUEST_LABEL_NAME\"."
           ISSUE_NUMBER=$(jq -r '.issue.number' "$GITHUB_EVENT_PATH")
           gh issue comment "$ISSUE_NUMBER" -R "$GITHUB_REPOSITORY" -b "$COMMENT_BODY"
           gh issue edit "$ISSUE_NUMBER" -R "$GITHUB_REPOSITORY" --remove-label "$NEW_REQUEST_LABEL_NAME" --add-label "$APPROVAL_REQUEST_LABEL_NAME"
