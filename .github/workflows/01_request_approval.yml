@@ -30,6 +30,5 @@ jobs:
           ISSUE_NUMBER=$(jq -r '.issue.number' "$GITHUB_EVENT_PATH")
           gh issue comment "$ISSUE_NUMBER" -R "$GITHUB_REPOSITORY" -b "$COMMENT_BODY"
           gh issue edit "$ISSUE_NUMBER" -R "$GITHUB_REPOSITORY" --remove-label "$NEW_REQUEST_LABEL_NAME" --add-label "$APPROVAL_REQUEST_LABEL_NAME"
-          gh issue edit "$ISSUE_NUMBER" -R "$GITHUB_REPOSITORY" --add-assignee "$APPROVAL_TEAM"
         fi
       shell: bash
