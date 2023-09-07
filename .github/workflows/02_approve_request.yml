@@ -44,7 +44,7 @@ jobs:
               return { is_member: RESULT.data.state };
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Add approved label
-        if: contains(github.event.issue.labels.*.name, ${{ APPROVAL_REQUEST_LABEL_NAME }}) && github.event.issue.state == 'open' == true && steps.check_team_membership.outputs.is_member == true
+        if: contains(github.event.issue.labels.*.name, $APPROVAL_REQUEST_LABEL_NAME) && github.event.issue.state == 'open' == true && steps.check_team_membership.outputs.is_member == true
         uses: actions/github-script@v3
         with:
           script: |
