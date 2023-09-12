@@ -3,6 +3,11 @@ name: Create Repo from Template
 on:
   workflow_dispatch:
 
+env:
+  TEMPLATE_REPO: mo-octocat/flutter-template
+  REPO_NAME: aws-123456789
+  ORG: mo-octocat
+
 jobs:
   create_repo:
     runs-on: ubuntu-latest
@@ -12,12 +17,12 @@ jobs:
 
       - name: Set Up Git
         run: |
-          git config --global user.email "your-email@example.com"
-          git config --global user.name "Your Name"
+          git config --global user.email "mouismail@github.com"
+          git config --global user.name "Mohammad Ismail"
 
       - name: Create Repository from Template
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           REPO_NAME="new-repo-name" # Change this to the desired name
           TEMPLATE_REPO="your-username/your-template-repo" # Change this to your template repo
@@ -36,5 +41,5 @@ jobs:
           git add .
           git commit -m "Initial commit"
           git branch -M main
-          git remote add origin https://github.com/$GITHUB_REPOSITORY
+          git remote add origin https://github.com/$ORG/$REPO_NAME
           git push -u origin main
