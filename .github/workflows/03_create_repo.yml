@@ -1,0 +1,40 @@
+name: Create Repo from Template
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create_repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up Git
+        run: |
+          git config --global user.email "your-email@example.com"
+          git config --global user.name "Your Name"
+
+      - name: Create Repository from Template
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REPO_NAME="new-repo-name" # Change this to the desired name
+          TEMPLATE_REPO="your-username/your-template-repo" # Change this to your template repo
+          
+          # Clone the template repository
+          git clone --depth=1 https://github.com/$TEMPLATE_REPO $REPO_NAME
+          
+          # Remove the .git directory
+          rm -rf $REPO_NAME/.git
+          
+          # Initialize a new Git repository
+          git init $REPO_NAME
+          cd $REPO_NAME
+          
+          # Commit and push the new repository
+          git add .
+          git commit -m "Initial commit"
+          git branch -M main
+          git remote add origin https://github.com/$GITHUB_REPOSITORY
+          git push -u origin main
