@@ -24,8 +24,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
-          REPO_NAME="new-repo-name" # Change this to the desired name
-          TEMPLATE_REPO="your-username/your-template-repo" # Change this to your template repo
           
           # Clone the template repository
           git clone --depth=1 https://github.com/$TEMPLATE_REPO $REPO_NAME
