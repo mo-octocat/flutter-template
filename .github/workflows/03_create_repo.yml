@@ -21,13 +21,32 @@ jobs:
           REPO_NAME: aws-123456789
           ORG: mo-octocat
         run: |
-          gh api \
-            --method POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/$TEMPLATE_REPO/generate \
-            -f owner=$ORG \
-           -f name=$REPO_NAME \
-           -f description='This is your first repository' \
-           -F include_all_branches=false \
-           -F private=false
+          # gh api \
+          #   --method POST \
+          #   -H "Accept: application/vnd.github+json" \
+          #   -H "X-GitHub-Api-Version: 2022-11-28" \
+          #   /repos/$TEMPLATE_REPO/generate \
+          #   -f owner=$ORG \
+          #  -f name=$REPO_NAME \
+          #  -f description='This is your first repository' \
+          #  -F include_all_branches=false \
+          #  -F private=false
+          api_response=$(gh api \
+                          --method POST \
+                          -H "Accept: application/vnd.github+json" \
+                          -H "X-GitHub-Api-Version: 2022-11-28" \
+                          /repos/$TEMPLATE_REPO/generate \
+                          -f owner=$ORG \
+                          -f name=$REPO_NAME \
+                          -f description='This is your first repository' \
+                          -F include_all_branches=false \
+                          -F private=false)
+          status=$(echo "$api_response" | jq -r '.status')
+          repo_title=$(echo "$json_response" | jq -r '.name')
+          org=$(echo "$json_response" | jq -r '.owner.login')
+          if [ "$http_status_code" -eq 201 ]; then
+            echo "Repo Created: https://github.com/$org/$repo_title" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "Error: Repo creation failed with HTTP status code $http_status_code"  >> $GITHUB_STEP_SUMMARY
+          fi
+          
