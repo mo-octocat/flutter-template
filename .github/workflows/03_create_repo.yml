@@ -17,6 +17,9 @@ jobs:
       - name: Create Repository from Template
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          TEMPLATE_REPO: mo-octocat/flutter-template
+          REPO_NAME: aws-123456789
+          ORG: mo-octocat
         run: |
           gh api \
             --method POST \
@@ -28,8 +31,3 @@ jobs:
            -f description='This is your first repository' \
            -F include_all_branches=false \
            -F private=false
-          env:
-            GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-            TEMPLATE_REPO: mo-octocat/flutter-template
-            REPO_NAME: aws-123456789
-            ORG: mo-octocat
