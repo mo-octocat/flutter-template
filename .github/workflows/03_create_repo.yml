@@ -21,7 +21,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
           TEMPLATE_REPO: mo-octocat/flutter-template
-          REPO_NAME: ${{ github.events.input.repo_name }}
+          REPO_NAME: ${{ github.event.inputs.repo_name }}
           ORG: mo-octocat
         run: |
           # gh api \
