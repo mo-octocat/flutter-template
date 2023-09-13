@@ -2,7 +2,10 @@ name: Create Repo from Template
 
 on:
   workflow_dispatch:
-
+    inputs:
+      repo_name:
+        required: true
+        
 env:
   TEMPLATE_REPO: mo-octocat/flutter-template
   REPO_NAME: aws-123456789
@@ -18,7 +21,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
           TEMPLATE_REPO: mo-octocat/flutter-template
-          REPO_NAME: aws-123456789
+          REPO_NAME: ${{ github.events.input.repo_name }}
           ORG: mo-octocat
         run: |
           # gh api \
@@ -44,7 +47,7 @@ jobs:
           status=$(echo "$api_response" | jq -r '.status')
           repo_title=$(echo "$json_response" | jq -r '.name')
           org=$(echo "$json_response" | jq -r '.owner.login')
-          if [ "$http_status_code" -eq 201 ]; then
+          if [ "$status" -eq 201 ]; then
             echo "Repo Created: https://github.com/$org/$repo_title" >> $GITHUB_STEP_SUMMARY
           else
             echo "Error: Repo creation failed with HTTP status code $http_status_code"  >> $GITHUB_STEP_SUMMARY
