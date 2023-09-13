@@ -14,30 +14,22 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
-      - name: Set Up Git
-        run: |
-          git config --global user.email "mouismail@github.com"
-          git config --global user.name "Mohammad Ismail"
-
       - name: Create Repository from Template
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
-          
-          # Clone the template repository
-          git clone --depth=1 https://github.com/$TEMPLATE_REPO $REPO_NAME
-          
-          # Remove the .git directory
-          rm -rf $REPO_NAME/.git
-          
-          # Initialize a new Git repository
-          git init $REPO_NAME
-          cd $REPO_NAME
-          
-          # Commit and push the new repository
-          git add .
-          git commit -m "Initial commit"
-          git branch -M main
-          git remote add origin https://github.com/$ORG/$REPO_NAME
-          git push -u origin main
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/$TEMPLATE_REPO/generate \
+            -f owner=$ORG \
+           -f name=$REPO_NAME \
+           -f description='This is your first repository' \
+           -F include_all_branches=false \
+           -F private=false
+          env:
+            GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+            TEMPLATE_REPO: mo-octocat/flutter-template
+            REPO_NAME: aws-123456789
+            ORG: mo-octocat
