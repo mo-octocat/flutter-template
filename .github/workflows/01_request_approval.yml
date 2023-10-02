@@ -54,10 +54,8 @@ jobs:
               core.setFailed(`There are no approvals for this deployment. This is not allowed.`);
               return; }
 
-            #  We are only interested in the latest one, which is the first one in the array
             const latestApproval = approvals.data[0];
             core.setOutput('approver', latestApproval.user.login);
-          github-token: ${{ secrets.PAT }}
           debug: true
   check_if_approved:
     name: Check if approved
