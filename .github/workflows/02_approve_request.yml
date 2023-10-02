@@ -34,7 +34,7 @@ jobs:
         with:
           script: |
               const TEAM_ID = process.env.APPROVAL_TEAM;
-              const USERNAME = context.actor;
+              const USERNAME =  '${{ needs.check_team_membership.outputs.approver }}';
               const RESULT = await github.teams.getMembershipForUserInOrg({
                 org: context.repo.owner,
                 team_slug: TEAM_ID,
