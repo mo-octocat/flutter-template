@@ -69,13 +69,11 @@ jobs:
           script: |
               const TEAM_ID = process.env.APPROVAL_TEAM;
               const USERNAME =  '${{ needs.check_team_membership.outputs.approver }}';
-              const RESULT = await github.teams.getMembershipForUserInOrg({
+              return await github.rest.teams.getMembershipForUserInOrg({
                 org: context.repo.owner,
                 team_slug: TEAM_ID,
-                username: USERNAME
-                });
-              echo(RESULT.data.state);
-              return { is_member: RESULT.data.state };
+                username: TEAM_ID,
+              });
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Add approved label
         uses: actions/github-script@v6
