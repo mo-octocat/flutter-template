@@ -36,6 +36,8 @@ jobs:
   approve_account_creation:
     name: Approve account creation
     runs-on: ubuntu-latest
+    outputs:
+      approver: ${{ steps.check_approval.outputs.approver }}
     environment:
       name: Production
     needs: mention_for_approval
@@ -56,7 +58,7 @@ jobs:
 
             const latestApproval = approvals.data[0];
             core.setOutput('approver', latestApproval.user.login);
-            echo "The latest approval was from ${latestApproval.user.login}.";
+            echo "approver=${latestApproval.user.login}" >> "$GITHUB_OUTPUT"
           debug: true
   check_if_approved:
     name: Check if approved
