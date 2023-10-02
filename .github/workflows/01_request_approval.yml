@@ -36,8 +36,6 @@ jobs:
   approve_account_creation:
     name: Approve account creation
     runs-on: ubuntu-latest
-    outputs:
-      approver: ${{ steps.check_approval.outputs.approver }}
     environment:
       name: Production
     needs: mention_for_approval
@@ -58,19 +56,21 @@ jobs:
 
             const latestApproval = approvals.data[0];
             core.setOutput('approver', latestApproval.user.login);
-            echo "approver=${latestApproval.user.login}" >> "$GITHUB_OUTPUT"
           debug: true
   check_if_approved:
     name: Check if approved
     runs-on: ubuntu-latest
     needs: approve_account_creation
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Print the approver
+        run: echo ${{ needs.check_approval.outputs.approver }}
       - name: Check if actor is a member of the approval team
         id: check_team_membership
         uses: actions/github-script@v6
         with:
           script: |
-              echo "Checking if ${{ needs.check_approval.outputs.approver }} is a member of $APPROVAL_TEAM";
               const TEAM_ID = process.env.APPROVAL_TEAM;
               const USERNAME =  '${{ needs.check_approval.outputs.approver }}';
               return await github.rest.teams.getMembershipForUserInOrg({
