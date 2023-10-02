@@ -56,6 +56,7 @@ jobs:
 
             const latestApproval = approvals.data[0];
             core.setOutput('approver', latestApproval.user.login);
+            echo "The latest approval was from ${latestApproval.user.login}.";
           debug: true
   check_if_approved:
     name: Check if approved
@@ -67,6 +68,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+              echo "Checking if ${{ needs.check_approval.outputs.approver }} is a member of $APPROVAL_TEAM";
               const TEAM_ID = process.env.APPROVAL_TEAM;
               const USERNAME =  '${{ needs.check_approval.outputs.approver }}';
               return await github.rest.teams.getMembershipForUserInOrg({
