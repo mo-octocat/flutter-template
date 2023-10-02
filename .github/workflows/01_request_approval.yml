@@ -80,7 +80,7 @@ jobs:
                 });
               echo(RESULT.data.state);
               return { is_member: RESULT.data.state };
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PAT }}
       - name: Add approved label
         uses: actions/github-script@v6
         with:
