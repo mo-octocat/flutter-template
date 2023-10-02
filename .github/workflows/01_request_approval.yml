@@ -56,11 +56,9 @@ jobs:
 
             #  We are only interested in the latest one, which is the first one in the array
             const latestApproval = approvals.data[0];
-            # if (latestApproval.user.login == context.actor){
-            #   core.setFailed(`Deployment to the environment is approved by the same person (${context.actor}) who initiated the deployment. This is not allowed.`);
-            #   return; }
             core.setOutput('approver', latestApproval.user.login);
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PAT }}
+          debug: true
   check_if_approved:
     name: Check if approved
     runs-on: ubuntu-latest
