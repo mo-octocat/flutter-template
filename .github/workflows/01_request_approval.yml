@@ -58,7 +58,6 @@ jobs:
             core.setOutput('approver', latestApproval.user.login);
             return latestApproval.user.login;
           debug: true
-          result-encoding: string
   check_if_approved:
     name: Check if approved
     runs-on: ubuntu-latest
@@ -74,11 +73,11 @@ jobs:
         with:
           script: |
               const TEAM_ID = process.env.APPROVAL_TEAM;
-              const USERNAME =  '${{ needs.check_approval.outputs.result }}';
+              const USERNAME =  ${{ needs.check_approval.outputs.result }};
               return await github.rest.teams.getMembershipForUserInOrg({
                 org: context.repo.owner,
                 team_slug: TEAM_ID,
-                username: USERNAME,
+                username: 'mouismail',
               });
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Add approved label
