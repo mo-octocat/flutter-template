@@ -69,7 +69,6 @@ jobs:
     steps:
       - name: Check if actor is a member of the approval team
         id: check_team_membership
-        needs: check_approval
         uses: actions/github-script@v3
         with:
           script: |
@@ -104,7 +103,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: Production
-    needs: approve_account_creation
+    needs: check_if_approved
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
