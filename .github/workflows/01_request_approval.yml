@@ -67,7 +67,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Print the approver
-        run: echo ${{ needs.check_approval.outputs.approver }}
+        run: echo ${{ needs.check_approval.outputs.result }}
       - name: Check if actor is a member of the approval team
         id: check_team_membership
         uses: actions/github-script@v6
