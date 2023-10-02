@@ -72,7 +72,7 @@ jobs:
               return await github.rest.teams.getMembershipForUserInOrg({
                 org: context.repo.owner,
                 team_slug: TEAM_ID,
-                username: TEAM_ID,
+                username: USERNAME,
               });
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Add approved label
