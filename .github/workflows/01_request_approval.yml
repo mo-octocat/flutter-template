@@ -9,7 +9,7 @@ on:
 env:
   NEW_REQUEST_LABEL_NAME: "aws-account-request"
   APPROVAL_REQUEST_LABEL_NAME: "aws-account-approval"
-  APPROVAL_TEAM: "mo-octocat/aws-account-approval-team"
+  APPROVAL_TEAM: "aws-account-approval-team"
 
 jobs:
   mention_for_approval:
