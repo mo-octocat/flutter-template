@@ -60,6 +60,7 @@ jobs:
             #   core.setFailed(`Deployment to the environment is approved by the same person (${context.actor}) who initiated the deployment. This is not allowed.`);
             #   return; }
             core.setOutput('approver', latestApproval.user.login);
+          github-token: ${{ secrets.GITHUB_TOKEN }}
   check_if_approved:
     name: Check if approved
     runs-on: ubuntu-latest
@@ -109,7 +110,7 @@ jobs:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.PAT_TOKEN }}
           repository: mo-octocat/flutter-template
           event-type: create-repo
           client-payload: '{"repo_name": "${{ github.event.issue.title }}", "description": "${{ github.event.issue.body }}"}'
