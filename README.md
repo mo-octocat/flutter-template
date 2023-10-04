@@ -128,13 +128,13 @@ The Enterprise PAT route of gaining elevated access to an organization is that i
    > **Note**
    > For multiple organizations, an Enterprise PAT is required.  Otherwise, limit this to the organization where GitHub App is installed.
 
-1. Update the inputs for `andyfeller/issueops-createrepo` action(s) within the workflows based on your authentication setup:
+1. Update the inputs for `issueops-createrepo` action(s) within the workflows based on your authentication setup:
 
    - Option 1: GitHub App for organization-wide usage
 
      ```yaml
            - name: Assign
-             uses: andyfeller/issueops-createrepo/assign@v1
+             uses: ./actions/assign
              with:
                authentication: app
                application-id: ${{ secrets.APP_ID }}
@@ -146,7 +146,7 @@ The Enterprise PAT route of gaining elevated access to an organization is that i
 
      ```yaml
            - name: Assign
-             uses: andyfeller/issueops-createrepo/assign@v1
+             uses: ./actions/assign
              with:
                authentication: token
                github-token: ${{ secrets.ISSUEOPS_TOKEN }}
