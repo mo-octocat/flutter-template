@@ -109,8 +109,8 @@ jobs:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.PAT_TOKEN }}
+          token: ${{ secrets.PAT }}
           repository: mo-octocat/flutter-template
           event-type: create-repo
-          client-payload: '{"repo_name": "${{ github.event.issue.title }}", "description": "${{ github.event.issue.body }}"}'
+          client-payload: '{"repo_name": "${{ github.event.issue.title }}", "description": ""}'
 
