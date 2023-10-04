@@ -54,7 +54,7 @@ runs:
           })
 
     - name: Auto-assign issue
-      uses: pozil/auto-assign-issue@v1.4.0
+      uses: pozil/auto-assign-issue@v1.12.0
       with:
         repo-token: ${{ steps.authenticate.outputs.token }}
         teams: ${{ inputs.team-assign }}

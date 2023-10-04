@@ -130,7 +130,7 @@ runs:
         github-token: ${{ steps.authenticate.outputs.token }}
         script: |
           const body = `
-          @${context.actor} : Everything looks good on the surface!  You've done the hard part, so let's get a \`/lgtm\` comment from someone on the @${context.repo.owner}/${process.env.LGTM_TEAM} team to get this repository created.
+          @${context.actor} : Everything looks good on the surface!  You've done the hard part, so let's get a \`/approval\` from someone on the @${context.repo.owner}/${process.env.LGTM_TEAM} team to get this repository created.
           `
 
           github.rest.issues.createComment({
