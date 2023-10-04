@@ -27,7 +27,7 @@ runs:
   steps:
     - name: Authenticate
       id: authenticate
-      uses: andyfeller/issueops-createrepo/authenticate@v1
+      uses: ./.github/actions/authenticate
       with:
         authentication: ${{ inputs.authentication }}
         application-id: ${{ inputs.application-id }}
