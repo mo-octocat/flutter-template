@@ -48,7 +48,7 @@ runs:
       uses: actions/checkout@v4
     - name: Authenticate
       id: authenticate
-      uses: ./.github/actions/authenticate
+      uses: ./actions/authenticate
       with:
         authentication: ${{ inputs.authentication }}
         application-id: ${{ inputs.application-id }}
@@ -57,7 +57,7 @@ runs:
 
     - name: Parse issue
       id: parse
-      uses: ./.github/actions/parse
+      uses: ./actions/parse
 
     - name: Record issue form results
       uses: actions/github-script@v6

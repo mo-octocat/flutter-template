@@ -13,13 +13,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-            sparse-checkout: |
-              .github/actions
-            path: actions
 
       - name: Assign
-        uses: ./actions/.github/actions/assign
+        uses: ./actions/assign
         with:
           authentication: app
           application-id: ${{ secrets.APP_ID }}
@@ -34,7 +30,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Validate
-      uses: ./actions/.github/actions/validate
+      uses: ./actions/validate
       with:
         authentication: app
         application-id: ${{ secrets.APP_ID }}
@@ -51,7 +47,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Fulfill
-      uses: ./actions/.github/actions/fulfill
+      uses: ./actions/fulfill
       with:
         authentication: app
         application-id: ${{ secrets.APP_ID }}
