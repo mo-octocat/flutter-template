@@ -25,7 +25,7 @@ runs:
     - name: Generate app installation token
       if: ${{ inputs.authentication == 'app' }}
       id: github-app-token
-      uses: microsoftgraph/get-app-token@v1.0.0
+      uses: microsoftgraph/get-app-token@main
       with:
         application-id: ${{ inputs.application-id }}
         application-private-key: ${{ inputs.application-private-key }}

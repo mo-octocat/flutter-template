@@ -62,7 +62,10 @@ module.exports = async ({ github, context, core }) => {
         }
 
         // Handle mixed case for reserved permissions
-        const reserved_permission = permission.toLowerCase()
+        if (permission) {
+            permission = permission.toLowerCase()
+        }
+        const reserved_permission = permission
 
         if (reserved_permissions.includes(reserved_permission)) {
             permission = reserved_permission
