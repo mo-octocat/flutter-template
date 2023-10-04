@@ -79,7 +79,7 @@ jobs:
                 team_slug: TEAM_ID,
                 username: 'mouismail',
               });
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PAT }}
       - name: Add approved label
         uses: actions/github-script@v6
         with:
@@ -101,7 +101,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: Production
-    needs: check_if_approved
+    needs: approve_account_creation
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
