@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-20.04
     if: contains(github.event.issue.labels.*.name, 'createrepo') && github.event.action == 'opened'
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Assign
         uses: ./.github/actions/assign
         with:
@@ -24,6 +26,8 @@ jobs:
     runs-on: ubuntu-20.04
     if: contains(github.event.issue.labels.*.name, 'createrepo') && github.event.issue.state == 'open'
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
     - name: Validate
       uses: ./.github/actions/validate
       with:
@@ -38,9 +42,11 @@ jobs:
         name: Production
     if: contains(github.event.issue.labels.*.name, 'createrepo') && github.event.issue.state == 'open'
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
     - name: Fulfill
-    uses: ./.github/actions/fulfill
-    with:
+      uses: ./.github/actions/fulfill
+      with:
         authentication: app
         application-id: ${{ secrets.APP_ID }}
         application-private-key: ${{ secrets.APP_PEM }}
