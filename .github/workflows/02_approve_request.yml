@@ -1,62 +1,62 @@
-name: AWS Account Creation Approval
+# name: AWS Account Creation Approval
 
-on:
-  issue_comment:
-    types: [created]
-    pattern: '/^\/approve-account-creation\s*$/i'
+# on:
+#   issue_comment:
+#     types: [created]
+#     pattern: '/^\/approve-account-creation\s*$/i'
 
-env:
-  APPROVAL_REQUEST_LABEL_NAME: "aws-account-approval"
-  APPROVED_LABEL_NAME: "aws-account-approved"
-  APPROVAL_TEAM: "aws-account-approval-team"
+# env:
+#   APPROVAL_REQUEST_LABEL_NAME: "aws-account-approval"
+#   APPROVED_LABEL_NAME: "aws-account-approved"
+#   APPROVAL_TEAM: "aws-account-approval-team"
 
-jobs:
-  approve_account_creation:
-    runs-on: ubuntu-latest
-    steps:
-      # - name: Check if issue is labeled
-      #   id: check_issue
-      #   uses: actions/github-script@v3
-      #   with:
-      #     script: |
-      #         const issue = context.issue;
-      #         const labels = issue.labels.nodes;
-      #         const approvalRequestLabel = labels.find(label => label.name === process.env.APPROVAL_REQUEST_LABEL_NAME);
-      #         if (approvalRequestLabel) {
-      #           return { labeled: true };
-      #           } else {
-      #             return { labeled: false };
-      #             }
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Check if actor is a member of the approval team
-        id: check_team_membership
-        uses: actions/github-script@v3
-        with:
-          script: |
-              const TEAM_ID = process.env.APPROVAL_TEAM;
-              const USERNAME =  '${{ needs.check_team_membership.outputs.approver }}';
-              const RESULT = await github.teams.getMembershipForUserInOrg({
-                org: context.repo.owner,
-                team_slug: TEAM_ID,
-                username: USERNAME
-                });
-              echo(RESULT.data.state);
-              return { is_member: RESULT.data.state };
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Add approved label
-        if: contains(github.event.issue.labels.*.name, 'aws-account-approval') && github.event.issue.state == 'open' == true && steps.check_team_membership.outputs.is_member == true
-        uses: actions/github-script@v3
-        with:
-          script: |
-              const issue = context.issue;
-              const labels = issue.labels.nodes;
-              const approvedLabel = labels.find(label => label.name === process.env.APPROVED_LABEL_NAME);
-                if (!approvedLabel) {
-                  github.issues.addLabels({
-                    owner: issue.owner,
-                    repo: issue.repo,
-                    issue_number: issue.number,
-                    labels: [process.env.APPROVED_LABEL_NAME]
-                    });
-                  }
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+# jobs:
+#   approve_account_creation:
+#     runs-on: ubuntu-latest
+#     steps:
+#       # - name: Check if issue is labeled
+#       #   id: check_issue
+#       #   uses: actions/github-script@v3
+#       #   with:
+#       #     script: |
+#       #         const issue = context.issue;
+#       #         const labels = issue.labels.nodes;
+#       #         const approvalRequestLabel = labels.find(label => label.name === process.env.APPROVAL_REQUEST_LABEL_NAME);
+#       #         if (approvalRequestLabel) {
+#       #           return { labeled: true };
+#       #           } else {
+#       #             return { labeled: false };
+#       #             }
+#       #     github-token: ${{ secrets.GITHUB_TOKEN }}
+#       - name: Check if actor is a member of the approval team
+#         id: check_team_membership
+#         uses: actions/github-script@v3
+#         with:
+#           script: |
+#               const TEAM_ID = process.env.APPROVAL_TEAM;
+#               const USERNAME =  '${{ needs.check_team_membership.outputs.approver }}';
+#               const RESULT = await github.teams.getMembershipForUserInOrg({
+#                 org: context.repo.owner,
+#                 team_slug: TEAM_ID,
+#                 username: USERNAME
+#                 });
+#               echo(RESULT.data.state);
+#               return { is_member: RESULT.data.state };
+#           github-token: ${{ secrets.GITHUB_TOKEN }}
+#       - name: Add approved label
+#         if: contains(github.event.issue.labels.*.name, 'aws-account-approval') && github.event.issue.state == 'open' == true && steps.check_team_membership.outputs.is_member == true
+#         uses: actions/github-script@v3
+#         with:
+#           script: |
+#               const issue = context.issue;
+#               const labels = issue.labels.nodes;
+#               const approvedLabel = labels.find(label => label.name === process.env.APPROVED_LABEL_NAME);
+#                 if (!approvedLabel) {
+#                   github.issues.addLabels({
+#                     owner: issue.owner,
+#                     repo: issue.repo,
+#                     issue_number: issue.number,
+#                     labels: [process.env.APPROVED_LABEL_NAME]
+#                     });
+#                   }
+#           github-token: ${{ secrets.GITHUB_TOKEN }}
