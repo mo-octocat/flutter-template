@@ -4,7 +4,6 @@ on:
     types:
       - opened
 env:
-  LGTM_TEAM: aws-account-reviewers-team
   LGTM_TEAM: aws-account-approval-team
 jobs:
   assign:
@@ -14,8 +13,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+            sparse-checkout: |
+              .github/actions
+            path: actions
+
       - name: Assign
-        uses: ./.github/actions/assign
+        uses: ./actions/.github/actions/assign
         with:
           authentication: app
           application-id: ${{ secrets.APP_ID }}
@@ -24,12 +28,13 @@ jobs:
   validate:
     name: Validate issue
     runs-on: ubuntu-20.04
+    needs: assign
     if: contains(github.event.issue.labels.*.name, 'createrepo') && github.event.issue.state == 'open'
     steps:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Validate
-      uses: ./.github/actions/validate
+      uses: ./actions/.github/actions/validate
       with:
         authentication: app
         application-id: ${{ secrets.APP_ID }}
@@ -38,6 +43,7 @@ jobs:
   fulfill:
     name: Fulfill issue
     runs-on: ubuntu-20.04
+    needs: validate
     environment:
         name: Production
     if: contains(github.event.issue.labels.*.name, 'createrepo') && github.event.issue.state == 'open'
@@ -45,7 +51,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Fulfill
-      uses: ./.github/actions/fulfill
+      uses: ./actions/.github/actions/fulfill
       with:
         authentication: app
         application-id: ${{ secrets.APP_ID }}
