@@ -20,7 +20,9 @@ body:
       label: Repository owner
       description: Select an owner
       options:
-        - tinyfists
+        - mo-octocat
+        - mouismail-demos
+        - mouismail
     validations:
       required: true
   - type: input
