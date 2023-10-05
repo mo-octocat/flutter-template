@@ -59,24 +59,11 @@ runs:
         REPOSITORY_VISIBILITY: ${{ steps.validate.outputs.repository-visibility }}
       with:
         github-token: ${{ steps.authenticate.outputs.token }}
-        script: |
-          return gh api \
-                --method POST \
-                /repos/mo-octocat/flutter-template/generate \
-                -f owner=process.env.REPOSITORY_OWNER \
-              -f name=process.env.REPOSITORY_NAME \
-              -f description=process.env.REPOSITORY_DESCRIPTION \
-              -F include_all_branches=false \
-              -F private=false
-          # return await github.rest.repos.createUsingTemplate({
-          #   template_owner: "mo-octocat",
-          #   template_repo: "flutter-template",
-          #   owner: process.env.REPOSITORY_OWNER
-          #   name: process.env.REPOSITORY_NAME,
-          #   description: process.env.REPOSITORY_DESCRIPTION,
-          #   private: true,
-          #   include_all_branches: false,
-          # })
+        bash: |
+          gh repo create process.env.REPOSITORY_OWNER/process.env.REPOSITORY_NAME \
+            --description process.env.REPOSITORY_DESCRIPTION \
+            --internal \
+            --template "mo-octocat/aws-template" \
     - name: Verify create repository results
       uses: actions/github-script@v6
       env:
