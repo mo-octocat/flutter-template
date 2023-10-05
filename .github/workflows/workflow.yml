@@ -1,4 +1,4 @@
-name: Create Repo - Assign
+name: Create AWS Account and Repository
 on:
   issues:
     types:

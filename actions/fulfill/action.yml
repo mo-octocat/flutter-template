@@ -51,6 +51,7 @@ runs:
 
     - name: Create repository
       id: create-repo
+      shell: bash
       env:
         REPOSITORY_OWNER: ${{ steps.validate.outputs.repository-owner }}
         REPOSITORY_NAME: ${{ steps.validate.outputs.repository-name }}
