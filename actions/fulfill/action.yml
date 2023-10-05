@@ -60,14 +60,14 @@ runs:
       with:
         github-token: ${{ steps.authenticate.outputs.token }}
         script: |
-          return await github.rest.repos.createInOrg({
-            org: process.env.REPOSITORY_OWNER,
+          return await github.rest.repos.createUsingTemplate({
+            template_owner: "mo-octocat",
+            template_repo: "flutter-template",
             name: process.env.REPOSITORY_NAME,
             description: process.env.REPOSITORY_DESCRIPTION,
-            visibility: process.env.REPOSITORY_VISIBILITY,
-            auto_init: true,
+            private: process.env.REPOSITORY_VISIBILITY == "private",
+            include_all_branches: true,
           })
-
     - name: Verify create repository results
       uses: actions/github-script@v6
       env:
