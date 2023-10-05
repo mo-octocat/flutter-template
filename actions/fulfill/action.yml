@@ -58,15 +58,12 @@ runs:
         REPOSITORY_DESCRIPTION: ${{ steps.validate.outputs.repository-description }}
         REPOSITORY_VISIBILITY: ${{ steps.validate.outputs.repository-visibility }}
         GH_TOKEN: ${{ steps.authenticate.outputs.token }}
-        REPO_OWNER: process.env.REPOSITORY_OWNER
-        REPO_NAME: process.env.REPOSITORY_NAME
-        REPO_DESCRIPTION: process.env.REPOSITORY_DESCRIPTION
       run: |
-        echo "::debug::Creating repository $REPO_OWNER/$REPO_NAME with description $REPO_DESCRIPTION"
+        echo "::debug::Creating repository ${{ steps.validate.outputs.repository-owner }}/${{ steps.validate.outputs.repository-name }} with description ${{ steps.validate.outputs.repository-description }}"
 
-        gh repo create $REPO_OWNER/$REPO_NAME \
+        gh repo create ${{ steps.validate.outputs.repository-owner }}/${{ steps.validate.outputs.repository-name }} \
           --template mo-octocat/aws-template \
-          --description $REPO_DESCRIPTION \
+          --description ${{ steps.validate.outputs.repository-description }} \
           --internal
     - name: Verify create repository results
       uses: actions/github-script@v6
