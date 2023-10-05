@@ -63,7 +63,8 @@ runs:
           return await github.rest.repos.createUsingTemplate({
             template_owner: "mo-octocat",
             template_repo: "flutter-template",
-            name: process.env.REPOSITORY_OWNER/process.env.REPOSITORY_NAME,
+            owner: process.env.ISSUE_AUTHOR
+            name: process.env.REPOSITORY_NAME,
             description: process.env.REPOSITORY_DESCRIPTION,
             private: true,
             include_all_branches: false,
