@@ -59,7 +59,6 @@ runs:
         REPOSITORY_VISIBILITY: ${{ steps.validate.outputs.repository-visibility }}
         GH_TOKEN: ${{ steps.authenticate.outputs.token }}
       run: |
-        echo ${{ steps.authenticate.outputs.token }} | gh auth login --with-token
         gh repo create $REPOSITORY_OWNER/$REPOSITORY_NAME \
           --description $REPOSITORY_DESCRIPTION \
           --internal \
