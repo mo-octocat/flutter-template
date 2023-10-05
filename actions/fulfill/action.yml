@@ -51,19 +51,23 @@ runs:
 
     - name: Create repository
       id: create-repo
-      uses: actions/github-script@v6
       env:
         REPOSITORY_OWNER: ${{ steps.validate.outputs.repository-owner }}
         REPOSITORY_NAME: ${{ steps.validate.outputs.repository-name }}
         REPOSITORY_DESCRIPTION: ${{ steps.validate.outputs.repository-description }}
         REPOSITORY_VISIBILITY: ${{ steps.validate.outputs.repository-visibility }}
+      run: |
+        gh repo create $REPOSITORY_OWNER/$REPOSITORY_NAME \
+          --description $REPOSITORY_DESCRIPTION \
+          --internal \
+          --template "mo-octocat/aws-template"
       with:
         github-token: ${{ steps.authenticate.outputs.token }}
-        bash: |
-          gh repo create process.env.REPOSITORY_OWNER/process.env.REPOSITORY_NAME \
-            --description process.env.REPOSITORY_DESCRIPTION \
-            --internal \
-            --template "mo-octocat/aws-template" \
+        # bash: |
+        #   gh repo create process.env.REPOSITORY_OWNER/process.env.REPOSITORY_NAME \
+        #     --description process.env.REPOSITORY_DESCRIPTION \
+        #     --internal \
+        #     --template "mo-octocat/aws-template" \
     - name: Verify create repository results
       uses: actions/github-script@v6
       env:
