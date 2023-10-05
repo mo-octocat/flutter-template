@@ -59,15 +59,10 @@ runs:
         REPOSITORY_VISIBILITY: ${{ steps.validate.outputs.repository-visibility }}
         GH_TOKEN: ${{ steps.authenticate.outputs.token }}
       run: |
-        gh repo create $REPOSITORY_OWNER/$REPOSITORY_NAME \
-          --description $REPOSITORY_DESCRIPTION \
-          --internal \
-          --template "mo-octocat/aws-template"
-        # bash: |
-        #   gh repo create process.env.REPOSITORY_OWNER/process.env.REPOSITORY_NAME \
-        #     --description process.env.REPOSITORY_DESCRIPTION \
-        #     --internal \
-        #     --template "mo-octocat/aws-template" \
+        gh repo create process.env.REPOSITORY_OWNER/process.env.REPOSITORY_NAME \
+          --template mo-octocat/aws-template \
+          --description process.env.REPOSITORY_DESCRIPTION \
+          --internal
     - name: Verify create repository results
       uses: actions/github-script@v6
       env:
