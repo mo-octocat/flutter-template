@@ -63,7 +63,7 @@ runs:
 
         gh repo create ${{ steps.validate.outputs.repository-owner }}/${{ steps.validate.outputs.repository-name }} \
           --template mo-octocat/aws-template \
-          --description ${{ steps.validate.outputs.repository-description }} \
+          --description "${{ steps.validate.outputs.repository-description }}" \
           --internal
     - name: Verify create repository results
       uses: actions/github-script@v6
