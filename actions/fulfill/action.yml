@@ -57,13 +57,13 @@ runs:
         REPOSITORY_NAME: ${{ steps.validate.outputs.repository-name }}
         REPOSITORY_DESCRIPTION: ${{ steps.validate.outputs.repository-description }}
         REPOSITORY_VISIBILITY: ${{ steps.validate.outputs.repository-visibility }}
+        GH_TOKEN: ${{ steps.authenticate.outputs.token }}
       run: |
+        echo ${{ steps.authenticate.outputs.token }} | gh auth login --with-token
         gh repo create $REPOSITORY_OWNER/$REPOSITORY_NAME \
           --description $REPOSITORY_DESCRIPTION \
           --internal \
           --template "mo-octocat/aws-template"
-      with:
-        github-token: ${{ steps.authenticate.outputs.token }}
         # bash: |
         #   gh repo create process.env.REPOSITORY_OWNER/process.env.REPOSITORY_NAME \
         #     --description process.env.REPOSITORY_DESCRIPTION \
