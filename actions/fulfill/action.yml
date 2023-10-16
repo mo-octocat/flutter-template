@@ -59,8 +59,6 @@ runs:
         REPOSITORY_VISIBILITY: ${{ steps.validate.outputs.repository-visibility }}
         GH_TOKEN: ${{ steps.authenticate.outputs.token }}
       run: |
-        echo "::debug::Creating repository ${{ steps.validate.outputs.repository-owner }}/${{ steps.validate.outputs.repository-name }} with description ${{ steps.validate.outputs.repository-description }}"
-
         gh repo create ${{ steps.validate.outputs.repository-owner }}/${{ steps.validate.outputs.repository-name }} \
           --template mo-octocat/aws-template \
           --description "${{ steps.validate.outputs.repository-description }}" \
