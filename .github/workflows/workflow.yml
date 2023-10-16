@@ -2,6 +2,7 @@ name: Create AWS Account and Repository
 on:
   issues:
     types: [opened, closed]
+  workflow_dispatch:
 
 env:
   LGTM_TEAM: aws-account-approval-team
