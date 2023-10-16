@@ -1,17 +1,5 @@
 # IssueOps for creating GitHub repositories
 
-## Motivation
-
-Many enterprises struggle around [repository creation](https://docs.github.com/en/enterprise-cloud@latest/repositories/creating-and-managing-repositories/creating-a-new-repository), balancing best practices with developer experience:
-
-- How visible should this be?
-- Is access being only being granted to teams?
-- Are branch protection rules in place?
-- Is it clear who owns the repository?
-- Can we satisfy regulatory requirements around controls?
-
-For enterprises that cannot allow developers to create repositories directly, the following solution walks through a possible solution built around native GitHub functionality to provide a transparent, auditable, and minimal process to facilitate repository creation needs.
-
 ## Overview
 
 Like many internal GitHub processes, this solution is built leveraging [issue forms](https://docs.github.com/en/enterprise-cloud@latest/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms) and [actions](https://docs.github.com/en/enterprise-cloud@latest/actions) to facilitate requests for repository creation.
