@@ -49,7 +49,4 @@ jobs:
     - name: Fulfill
       uses: ./actions/fulfill
       with:
-        authentication: app
-        application-id: ${{ secrets.APP_ID }}
-        application-private-key: ${{ secrets.APP_PEM }}
-        team-assign: ${{ env.LGTM_TEAM }}
+        GITHUB_TOKEN: ${{ env.PAT }}
