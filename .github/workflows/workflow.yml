@@ -1,8 +1,8 @@
 name: Create AWS Account and Repository
 on:
   issues:
-    types:
-      - opened
+    types: [opened, closed]
+
 env:
   LGTM_TEAM: aws-account-approval-team
 jobs:
