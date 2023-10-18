@@ -62,9 +62,9 @@ runs:
         return await github.rest.repos.createUsingTemplate({
             template_owner: "mo-octocat",
             template_repo: "aws-template",
-            name: process.env.REPOSITORY_NAME,
-            description: process.env.REPOSITORY_DESCRIPTION,
-            visibility: process.env.REPOSITORY_VISIBILITY,
+            name: ${{ steps.validate.outputs.repository-owner }}/${{ steps.validate.outputs.repository-name }},
+            description: "${{ steps.validate.outputs.repository-description }}",
+            visibility: true,
           })
         # createUsingTemplate
         # gh repo create ${{ steps.validate.outputs.repository-owner }}/${{ steps.validate.outputs.repository-name }} \
