@@ -110,12 +110,12 @@ runs:
             body
           })
 
-    - name: Close issue
-      uses: actions/github-script@v6
-      with:
-        script: |
-          github.rest.issues.update({
-            ...context.repo,
-            issue_number: context.issue.number,
-            state: "closed",
-          })
+    # - name: Close issue
+    #   uses: actions/github-script@v6
+    #   with:
+    #     script: |
+    #       github.rest.issues.update({
+    #         ...context.repo,
+    #         issue_number: context.issue.number,
+    #         state: "closed",
+    #       })
