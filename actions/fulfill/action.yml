@@ -68,6 +68,7 @@ runs:
               name: "${{ steps.validate.outputs.repository-name }}",
               description: "${{ steps.validate.outputs.repository-description }}",
             })
+        debug: true
         # createUsingTemplate
         # gh repo create ${{ steps.validate.outputs.repository-owner }}/${{ steps.validate.outputs.repository-name }} \
         #   --template mo-octocat/aws-template \
