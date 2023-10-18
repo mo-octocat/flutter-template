@@ -4,11 +4,7 @@
 
 Like many internal GitHub processes, this solution is built leveraging [issue forms](https://docs.github.com/en/enterprise-cloud@latest/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms) and [actions](https://docs.github.com/en/enterprise-cloud@latest/actions) to facilitate requests for repository creation.
 
-![Screenshot of create repository issue form](docs/create-repo-new-issue-form.png)
-
 Upon filling out the issue form, a team of people can review and approve requests without having to be organization owners.
-
-![Screenshot of portion of create repository issue that has been fulfilled](docs/create-repo-short.png)
 
 For faster response time, leverage [Slack](https://slack.github.com/) or [Microsoft Teams](https://teams.github.com/) integrations to notify responsible party when issues are created.
 
