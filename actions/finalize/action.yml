@@ -1,5 +1,5 @@
 name: |
-  Repository Creation: Fulfill
+  Repository Creation: Finalize
 description: |
   Action used to fulfill issue-ops requests around creating GitHub repositories.
 inputs:
