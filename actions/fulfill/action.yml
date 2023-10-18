@@ -51,21 +51,23 @@ runs:
 
     - name: Create repository
       id: create-repo
-      shell: bash
+      uses: actions/github-script@v6
       env:
         REPOSITORY_OWNER: ${{ steps.validate.outputs.repository-owner }}
         REPOSITORY_NAME: ${{ steps.validate.outputs.repository-name }}
         REPOSITORY_DESCRIPTION: ${{ steps.validate.outputs.repository-description }}
         REPOSITORY_VISIBILITY: ${{ steps.validate.outputs.repository-visibility }}
         GH_TOKEN: ${{ steps.authenticate.outputs.token }}
-      run: |
-        return await github.rest.repos.createUsingTemplate({
-            template_owner: "mo-octocat",
-            template_repo: "aws-template",
-            name: ${{ steps.validate.outputs.repository-owner }}/${{ steps.validate.outputs.repository-name }},
-            description: "${{ steps.validate.outputs.repository-description }}",
-            visibility: true,
-          })
+      with:
+        github-token: ${{ steps.authenticate.outputs.token }}
+        script: |
+          return await github.rest.repos.createUsingTemplate({
+              template_owner: "mo-octocat",
+              template_repo: "aws-template",
+              name: ${{ steps.validate.outputs.repository-owner }}/${{ steps.validate.outputs.repository-name }},
+              description: "${{ steps.validate.outputs.repository-description }}",
+              visibility: true,
+            })
         # createUsingTemplate
         # gh repo create ${{ steps.validate.outputs.repository-owner }}/${{ steps.validate.outputs.repository-name }} \
         #   --template mo-octocat/aws-template \
