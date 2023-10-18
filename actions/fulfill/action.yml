@@ -66,7 +66,6 @@ runs:
               template_repo: "aws-template",
               name: "${{ steps.validate.outputs.repository-name }}",
               description: "${{ steps.validate.outputs.repository-description }}",
-              visibility: true,
             })
         # createUsingTemplate
         # gh repo create ${{ steps.validate.outputs.repository-owner }}/${{ steps.validate.outputs.repository-name }} \
