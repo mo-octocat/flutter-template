@@ -11,4 +11,4 @@ runs:
   steps:
     - name: Parse issue form
       id: parse
-      uses: zentered/issue-forms-body-parser@v1.4.5
+      uses: zentered/issue-forms-body-parser@v2.0.0
