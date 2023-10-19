@@ -49,7 +49,7 @@ runs:
       uses: ./actions/parse
 
     - name: Verify issue form results
-      id: inputs
+      id: update-config
       uses: actions/github-script@v6
       env:
         ISSUE_FORM_JSON: ${{ steps.parse.outputs.data }}
@@ -85,10 +85,10 @@ runs:
       uses: actions/github-script@v6
       env:
         ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
-        CREATE_REPO_JSON: ${{ steps.update.outputs.result }}
+        UPDATE_CONFIG_JSON: ${{ steps.update-config.outputs.config }}
       with:
         script: |
-          const response = JSON.parse(process.env.CREATE_REPO_JSON)
+          const response = JSON.parse(process.env.UPDATE_CONFIG_JSON)
           const jsonPretty = JSON.stringify(response, null, 2)
           let message;
 
@@ -103,7 +103,7 @@ runs:
           **${message}**
 
           <details>
-            <summary>Create Organization Repository Response</summary>
+            <summary>Update AWS Config File Response</summary>
 
             \`\`\`json
             ${jsonPretty}
