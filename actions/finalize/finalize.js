@@ -37,7 +37,7 @@ module.exports = async ({ github, context, core }) => {
 
     const file = await github.repos.getContent({
         owner,
-        repo,
+        repo: name,
         path,
         ref: branch
     });
