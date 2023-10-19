@@ -11,7 +11,7 @@ module.exports = async ({ github, context, core }) => {
 
     const errors = []
   
-    const file = await github.repos.getContent({
+    const file = await github.rest.repos.getContent({
         owner,
         repo: name,
         path,
@@ -31,7 +31,7 @@ module.exports = async ({ github, context, core }) => {
     };
     const newContent = yaml.dump(newConfig);
 
-    await github.repos.createOrUpdateFileContents({
+    await github.rest.repos.createOrUpdateFileContents({
         owner,
         repo,
         path,
