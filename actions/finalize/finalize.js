@@ -1,6 +1,6 @@
 module.exports = async ({ github, context, core }) => {
-    const { util } = require("node:util");
-    const { exec } = require("node:child_process");
+    const util  = require("node:util");
+    const { exec }  = require("node:child_process");
 
     const issueForm = JSON.parse(process.env.ISSUE_FORM_JSON)
     const description = issueForm["repository-description"].text
