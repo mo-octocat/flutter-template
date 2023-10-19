@@ -17,7 +17,7 @@ module.exports = async ({ github, context, core }) => {
         path,
         ref: branch
     });
-   
+    await installDependency({ dependency: "js-yaml" });
     const content = Buffer.from(file.data.content, 'base64').toString();
     const config = yaml.load(content);
 
@@ -29,8 +29,7 @@ module.exports = async ({ github, context, core }) => {
             organizationalUnit
         }
     };
-    await installDependency({ dependency: "js-yaml" });
-
+    
     const newContent = yaml.dump(newConfig);
 
     await github.rest.repos.createOrUpdateFileContents({
