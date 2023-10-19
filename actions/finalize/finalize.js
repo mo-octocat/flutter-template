@@ -1,4 +1,7 @@
 module.exports = async ({ github, context, core }) => {
+    const { util } = require("node:util");
+    const { exec } = require("node:child_process");
+
     const issueForm = JSON.parse(process.env.ISSUE_FORM_JSON)
     const description = issueForm["repository-description"].text
     const justification = issueForm["repository-justification"].text
@@ -9,15 +12,16 @@ module.exports = async ({ github, context, core }) => {
     const path = "accounts-config.yaml"
     const branch = "main"
 
-    const errors = []
-  
+
     const file = await github.rest.repos.getContent({
         owner,
         repo: name,
         path,
         ref: branch
     });
+
     await installDependency({ dependency: "js-yaml" });
+
     const content = Buffer.from(file.data.content, 'base64').toString();
     const config = yaml.load(content);
 
@@ -29,7 +33,7 @@ module.exports = async ({ github, context, core }) => {
             organizationalUnit
         }
     };
-    
+
     const newContent = yaml.dump(newConfig);
 
     await github.rest.repos.createOrUpdateFileContents({
@@ -41,16 +45,16 @@ module.exports = async ({ github, context, core }) => {
         sha: file.data.sha,
         branch
     });
-    
+
     async function installDependency({ dependency }) {
       installDependency.cache ??= new Set();
-    
+
       if (installDependency.cache.has(dependency)) {
         return;
       }
-    
+
       installDependency.cache.add(dependency);
-    
+
       try {
         await util.promisify(exec)(`npm install ${dependency}`);
       } catch (error) {
