@@ -15,6 +15,12 @@ inputs:
   github-token:
     description: GitHub token, used if `authentication` is 'token'
     required: false
+  config-repo-owner:
+    description: The org where is the config repo exsits
+    required: true
+  config-repo:
+    description: The the config repo name
+    required: true
 runs:
   using: composite
   steps:
