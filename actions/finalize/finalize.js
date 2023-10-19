@@ -41,10 +41,7 @@ module.exports = async ({ github, context, core }) => {
         path,
         ref: branch
     });
-    // the config file is yaml
-
-
-
+   
     const content = Buffer.from(file.data.content, 'base64').toString();
     const config = yaml.load(content);
 
