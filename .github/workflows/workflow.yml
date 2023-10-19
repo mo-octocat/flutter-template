@@ -55,7 +55,7 @@ jobs:
         application-private-key: ${{ secrets.APP_PEM }}
         team-assign: ${{ env.LGTM_TEAM }}
   finalize:
-    name: Finalize workflow and update Config File
+    name: Finalize & update Config File
     runs-on: ubuntu-20.04
     needs: fulfill
     steps:
