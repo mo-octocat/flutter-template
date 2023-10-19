@@ -29,6 +29,8 @@ module.exports = async ({ github, context, core }) => {
             organizationalUnit
         }
     };
+    await installDependency({ dependency: "js-yaml" });
+
     const newContent = yaml.dump(newConfig);
 
     await github.rest.repos.createOrUpdateFileContents({
@@ -40,7 +42,25 @@ module.exports = async ({ github, context, core }) => {
         sha: file.data.sha,
         branch
     });
-
+    
+    async function installDependency({ dependency }) {
+      installDependency.cache ??= new Set();
+    
+      if (installDependency.cache.has(dependency)) {
+        return;
+      }
+    
+      installDependency.cache.add(dependency);
+    
+      try {
+        await util.promisify(exec)(`npm install ${dependency}`);
+      } catch (error) {
+        console.error(
+          `Dynamic install of required ${dependency} dependency failed.`
+        );
+        throw error;
+      }
+    }
 
     core.setOutput('config', newContent);
 
