@@ -47,9 +47,6 @@ runs:
     - name: Parse issue
       id: parse
       uses: ./actions/parse
-    - name: Install Yaml
-      uses: actions/setup-node@v3
-      run: npm install js-yaml
     - name: Verify issue form results
       id: update-config
       uses: actions/github-script@v6
