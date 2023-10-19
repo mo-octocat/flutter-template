@@ -57,7 +57,7 @@ runs:
         github-token: ${{ steps.authenticate.outputs.token }}
         script: |
           const finalize = require(process.env.FINALIZE_FILE)
-          await finalize({github, context, core, "js-yaml"})
+          await finalize({github, context, core})
     # - name: Convert Content ot Base64
     #   id: convert
     #   shell: bash
