@@ -47,7 +47,9 @@ runs:
     - name: Parse issue
       id: parse
       uses: ./actions/parse
-
+    - name: Install Yaml
+      uses: actions/setup-node@v3
+      run: npm install js-yaml
     - name: Verify issue form results
       id: update-config
       uses: actions/github-script@v6
@@ -58,7 +60,7 @@ runs:
         github-token: ${{ steps.authenticate.outputs.token }}
         script: |
           const validate = require(process.env.FINALIZE_FILE)
-          await validate({github, context, core})
+          await validate({github, context, core, js-yaml})
     # - name: Convert Content ot Base64
     #   id: convert
     #   shell: bash
