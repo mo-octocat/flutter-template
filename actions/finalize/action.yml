@@ -15,24 +15,6 @@ inputs:
   github-token:
     description: GitHub token, used if `authentication` is 'token'
     required: false
-  config-repo-owner:
-    description: The AWS Configuration Repo owner org
-    required: true
-  config-repo-name:
-    description: The AWS Configuration Repo name
-    required: true
-  commit-message:
-    description: Commit message for updating the config file
-    required: true
-  content:
-    description: The config file update content
-    required: true
-  committer-name:
-    description: The committer name for the commit sha
-    required: true
-  committer-email:
-    description: The committer email for the commit sha
-    required: true
 runs:
   using: composite
   steps:
@@ -56,29 +38,43 @@ runs:
         token: ${{ steps.authenticate.outputs.token }}
         ref: "main"
         path: "config-repo"
+    - name: Parse issue
+      id: parse
+      uses: ./actions/parse
 
-    - name: Convert Content ot Base64
-      id: convert
-      shell: bash
-      run: |
-        echo "content=echo '${{ inputs.content }}' | base64" >> "$GITHUB_OUTPUT"
-    - name: Update Config File
-      id: update
+    - name: Verify issue form results
+      id: inputs
       uses: actions/github-script@v6
+      env:
+        ISSUE_FORM_JSON: ${{ steps.parse.outputs.data }}
+        FINALIZE_FILE: ${{ github.action_path }}/finalize.js
       with:
-          github-token: ${{ steps.authenticate.outputs.token }}
-          script: |
-            return github.rest.repos.createOrUpdateFileContents({
-                  ${{ inputs.config-repo-owner }},
-                  ${{ inputs.config-repo }},
-                  "config-repo",
-                  ${{ inputs.commit-message }},
-                  ${{ steps.convert.outputs.content }},
-                  ${{ inputs.committer-name }},
-                  ${{ inputs.committer-email }},
-                  ${{ inputs.committer-name }},
-                  ${{ inputs.committer-email }},
-            })
+        github-token: ${{ steps.authenticate.outputs.token }}
+        script: |
+          const validate = require(process.env.FINALIZE_FILE)
+          await validate({github, context, core})
+    # - name: Convert Content ot Base64
+    #   id: convert
+    #   shell: bash
+    #   run: |
+    #     echo "content=echo '${{ inputs.content }}' | base64" >> "$GITHUB_OUTPUT"
+    # - name: Update Config File
+    #   id: update
+    #   uses: actions/github-script@v6
+    #   with:
+    #       github-token: ${{ steps.authenticate.outputs.token }}
+    #       script: |
+    #         return github.rest.repos.createOrUpdateFileContents({
+    #               ${{ inputs.config-repo-owner }},
+    #               ${{ inputs.config-repo }},
+    #               "config-repo",
+    #               ${{ inputs.commit-message }},
+    #               ${{ steps.convert.outputs.content }},
+    #               ${{ inputs.committer-name }},
+    #               ${{ inputs.committer-email }},
+    #               ${{ inputs.committer-name }},
+    #               ${{ inputs.committer-email }},
+    #         })
     - name: Verify update repository results
       uses: actions/github-script@v6
       env:
