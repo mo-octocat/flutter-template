@@ -20,7 +20,7 @@ module.exports = async ({ github, context, core }) => {
         ref: branch
     });
 
-    await installDependency({ dependency: "js-yaml" });
+    await installDependency({ dependency: "yaml" });
 
     const content = Buffer.from(file.data.content, 'base64').toString();
     const config = yaml.load(content);
