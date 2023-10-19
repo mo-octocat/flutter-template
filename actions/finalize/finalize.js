@@ -39,7 +39,7 @@ module.exports = async ({ github, context, core }) => {
 
     await github.rest.repos.createOrUpdateFileContents({
         owner,
-        repo,
+        repo: name,
         path,
         message: `Update ${name} in config.yaml`,
         content: Buffer.from(newContent).toString('base64'),
