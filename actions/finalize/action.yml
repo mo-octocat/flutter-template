@@ -58,30 +58,30 @@ runs:
         script: |
           const finalize = require(process.env.FINALIZE_FILE)
           await finalize({github, context, core})
-    - name: Verify update repository results
-      uses: actions/github-script@v6
-      env:
-        UPDATE_CONFIG_JSON: ${{ steps.update-config.outputs.config }}
-      with:
-        script: |
-          const response = JSON.parse(process.env.UPDATE_CONFIG_JSON)
-          const body = `
-          **The Config file has been updated successfully**
+    # - name: Verify update repository results
+    #   uses: actions/github-script@v6
+    #   env:
+    #     UPDATE_CONFIG_JSON: ${{ steps.update-config.outputs.config }}
+    #   with:
+    #     script: |
+    #       const response = JSON.parse(process.env.UPDATE_CONFIG_JSON)
+    #       const body = `
+    #       **The Config file has been updated successfully**
 
-          <details>
-            <summary>Update AWS Config File Response</summary>
+    #       <details>
+    #         <summary>Update AWS Config File Response</summary>
 
-            \`\`\`json
-            ${response}
-            \`\`\`
-          </details>
-          `
+    #         \`\`\`json
+    #         ${response}
+    #         \`\`\`
+    #       </details>
+    #       `
 
-          github.rest.issues.createComment({
-            ...context.repo,
-            issue_number: context.issue.number,
-            body
-          })
+    #       github.rest.issues.createComment({
+    #         ...context.repo,
+    #         issue_number: context.issue.number,
+    #         body
+    #       })
 
     - name: Close issue
       uses: actions/github-script@v6
