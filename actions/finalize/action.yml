@@ -58,41 +58,30 @@ runs:
         script: |
           const finalize = require(process.env.FINALIZE_FILE)
           await finalize({github, context, core})
-    # - name: Verify update repository results
-    #   uses: actions/github-script@v6
-    #   env:
-    #     ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
-    #     UPDATE_CONFIG_JSON: ${{ steps.update-config.outputs.config }}
-    #   with:
-    #     script: |
-    #       const response = JSON.parse(process.env.UPDATE_CONFIG_JSON)
-    #       const jsonPretty = JSON.stringify(response, null, 2)
-    #       let message;
+    - name: Verify update repository results
+      uses: actions/github-script@v6
+      env:
+        UPDATE_CONFIG_JSON: ${{ steps.update-config.outputs.config }}
+      with:
+        script: |
+          const response = JSON.parse(process.env.UPDATE_CONFIG_JSON)
+          const body = `
+          **The Config file has been updated successfully**
 
-    #       if (response.status == 201) {
-    #         message = `@${process.env.ISSUE_AUTHOR} : Your repository has been created: ${response.data.html_url}`
-    #       } else {
-    #         message = `@${context.actor} : Workflow is either not authorized to create repository or something went wrong.`
-    #         core.setFailed(message)
-    #       }
+          <details>
+            <summary>Update AWS Config File Response</summary>
 
-    #       const body = `
-    #       **${message}**
+            \`\`\`json
+            ${response}
+            \`\`\`
+          </details>
+          `
 
-    #       <details>
-    #         <summary>Update AWS Config File Response</summary>
-
-    #         \`\`\`json
-    #         ${jsonPretty}
-    #         \`\`\`
-    #       </details>
-    #       `
-
-    #       github.rest.issues.createComment({
-    #         ...context.repo,
-    #         issue_number: context.issue.number,
-    #         body
-    #       })
+          github.rest.issues.createComment({
+            ...context.repo,
+            issue_number: context.issue.number,
+            body
+          })
 
     - name: Close issue
       uses: actions/github-script@v6
