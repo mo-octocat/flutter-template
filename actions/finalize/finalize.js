@@ -29,11 +29,11 @@ module.exports = async ({ github, context, core }) => {
 
     const newConfig = {
         ...config,
-          - name: {
-            description,
-            email,
-            organizationalUnit
-        }
+                name: {
+                description,
+                email,
+                organizationalUnit
+            }
     };
 
     const newContent = yaml.dump(newConfig);
