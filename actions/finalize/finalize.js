@@ -11,6 +11,7 @@ module.exports = async ({ github, context, core }) => {
     const organizationalUnit = "mo-octocat"
     const path = "accounts-config.yaml"
     const branch = "main"
+    const title = issueForm["repository-name"].text
 
 
     const file = await github.rest.repos.getContent({
@@ -28,11 +29,11 @@ module.exports = async ({ github, context, core }) => {
 
     const newConfig = {
         ...config,
-        [name]: {
-            description,
-            email,
-            organizationalUnit
-        }
+            - [title]: {
+                description,
+                email,
+                organizationalUnit
+            }
     };
 
     const newContent = yaml.dump(newConfig);
