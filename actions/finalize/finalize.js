@@ -6,17 +6,17 @@ module.exports = async ({ github, context, core }) => {
     const description = issueForm["repository-description"].text
     const justification = issueForm["repository-justification"].text
     const email = "mouismail@github.com"
-    const name = "aws-stack-fluttertech-landing-zone-config"
+    const templateRepoName = "aws-stack-fluttertech-landing-zone-config"
     const owner = "mo-octocat"
     const organizationalUnit = "mo-octocat"
     const path = "accounts-config.yaml"
     const branch = "main"
-    const title = issueForm["repository-name"].text
+    const name = issueForm["repository-name"].text
 
 
     const file = await github.rest.repos.getContent({
         owner,
-        repo: name,
+        repo: templateRepoName,
         path,
         ref: branch
     });
@@ -29,20 +29,20 @@ module.exports = async ({ github, context, core }) => {
 
     const newConfig = {
         ...config,
-            - [title]: {
-                description,
-                email,
-                organizationalUnit
-            }
+          - name: {
+            description,
+            email,
+            organizationalUnit
+        }
     };
 
     const newContent = yaml.dump(newConfig);
 
     await github.rest.repos.createOrUpdateFileContents({
         owner,
-        repo: name,
+        repo: templateRepoName,
         path,
-        message: `Update ${name} in config.yaml`,
+        message: `Update ${templateRepoName} in config.yaml`,
         content: Buffer.from(newContent).toString('base64'),
         sha: file.data.sha,
         branch
@@ -68,14 +68,4 @@ module.exports = async ({ github, context, core }) => {
     }
 
     core.setOutput('config', newContent);
-
-    // // add comment to the issue with the updated config
-
-    // const comment = `Thanks for your contribution, the config file has been updated with the following content: \n\n\`\`\`json\n${newContent}\n\`\`\``;
-    // await github.issues.createComment({
-    //     owner,
-    //     repo,
-    //     issue_number: context.issue.number,
-    //     body: comment
-    // });
 }
