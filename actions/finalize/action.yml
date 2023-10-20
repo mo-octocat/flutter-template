@@ -71,7 +71,7 @@ runs:
             <summary>Update AWS Config File Response</summary>
 
             \`\`\`json
-            ${response}
+            ${{ steps.update-config.outputs.config }}
             \`\`\`
           </details>
           `
