@@ -86,6 +86,7 @@ runs:
       env:
         ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
         UPDATE_CONFIG_JSON: ${{ steps.update-config.outputs.config }}
+        github-token: ${{ steps.authenticate.outputs.token }}
       with:
         script: |
           const response = JSON.parse(process.env.UPDATE_CONFIG_JSON)
