@@ -27,10 +27,10 @@ module.exports = async ({ github, context, core }) => {
     const content = Buffer.from(file.data.content, 'base64').toString();
     const config = yaml.load(content);
     const newData = [{
-        - name: name,
-          description: description,
-          email: email,
-          organizationalUnit: owner,
+        name: name,
+        description: description,
+        email: email,
+        organizationalUnit: owner,
     }];
     const newConfig = {
         ...config { newData }};
