@@ -71,6 +71,13 @@ jobs:
       with:
         labels: |
           aws-account-creation-approved
+    - name: remove labels
+      uses: actions-ecosystem/action-remove-labels@v1
+      with:
+        labels: |
+          aws-account-approval
+          aws-account-request
+          createrepo
   finalize:
     name: Finalize & update Config File
     runs-on: ubuntu-20.04
@@ -86,3 +93,17 @@ jobs:
         application-private-key: ${{ secrets.APP_PEM }}
         config-repo-owner: mo-octocat
         config-repo: aws-stack-fluttertech-landing-zone-config
+    - name: add labels
+      uses: actions-ecosystem/action-add-labels@v1
+      with:
+        labels: |
+          completed
+          aws-account-created
+    - name: remove labels
+      uses: actions-ecosystem/action-remove-labels@v1
+      with:
+        labels: |
+          aws-account-creation-approved
+          aws-account-approval
+          aws-account-request
+          createrepo
