@@ -1,5 +1,13 @@
 # IssueOps for creating GitHub repositories and AWS Account
 
+## Tools
+
+- GitHub Apps
+- GitHub Issues
+- GitHub Actions
+- GitHub Compoiste Actions
+- JavaScript
+
 ## Overview
 
 Like many internal GitHub processes, this solution is built leveraging [issue forms](https://docs.github.com/en/enterprise-cloud@latest/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms) and [actions](https://docs.github.com/en/enterprise-cloud@latest/actions) to facilitate requests for repository creation.
