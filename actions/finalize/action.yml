@@ -70,7 +70,7 @@ runs:
           <details>
             <summary>Update AWS Config File Response</summary>
 
-            \`\`\`json
+            \`\`\`yaml
             ${{ steps.update-config.outputs.config }}
             \`\`\`
           </details>
