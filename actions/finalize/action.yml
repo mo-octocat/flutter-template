@@ -65,7 +65,7 @@ runs:
       with:
         script: |
           const body = `
-          **The Config file has been updated successfully**
+          **The Config file has been updated successfully: https://github.com/mo-octocat/aws-stack-fluttertech-landing-zone-config**
 
           <details>
             <summary>Update AWS Config File Response</summary>
