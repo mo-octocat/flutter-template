@@ -40,6 +40,7 @@ The GitHub App route of gaining elevated access to an organization is that it is
    - **Repository permissions**:
      - administration (read and write)
      - issues (read and write)
+     - content (read)
    - **Organization permissions**:
      - members (read-only)
 
