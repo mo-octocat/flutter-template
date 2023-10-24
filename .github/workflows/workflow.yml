@@ -23,6 +23,11 @@ jobs:
           application-id: ${{ secrets.APP_ID }}
           application-private-key: ${{ secrets.APP_PEM }}
           team-assign: ${{ env.REVIEWER_TEAM }}
+      - name: add labels
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: |
+            aws-account-request
   validate:
     name: Validate issue
     runs-on: ubuntu-20.04
@@ -38,6 +43,11 @@ jobs:
         application-id: ${{ secrets.APP_ID }}
         application-private-key: ${{ secrets.APP_PEM }}
         team-assign: ${{ env.APPROVAL_TEAM }}
+    - name: add labels
+      uses: actions-ecosystem/action-add-labels@v1
+      with:
+        labels: |
+          aws-account-approval
   fulfill:
     name: Fulfill issue
     runs-on: ubuntu-20.04
@@ -55,6 +65,11 @@ jobs:
         application-id: ${{ secrets.APP_ID }}
         application-private-key: ${{ secrets.APP_PEM }}
         team-assign: ${{ env.APPROVAL_TEAM }}
+    - name: add labels
+      uses: actions-ecosystem/action-add-labels@v1
+      with:
+        labels: |
+          aws-account-creation-approved
   finalize:
     name: Finalize & update Config File
     runs-on: ubuntu-20.04
