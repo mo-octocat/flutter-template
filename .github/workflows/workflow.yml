@@ -5,7 +5,8 @@ on:
   workflow_dispatch:
 
 env:
-  LGTM_TEAM: aws-account-approval-team
+  REVIEWER_TEAM: "aws-account-approval-team"
+  APPROVAL_TEAM: "aws-account-approval-team"
 jobs:
   assign:
     name: Assign new issue
@@ -21,7 +22,7 @@ jobs:
           authentication: app
           application-id: ${{ secrets.APP_ID }}
           application-private-key: ${{ secrets.APP_PEM }}
-          team-assign: ${{ env.LGTM_TEAM }}
+          team-assign: ${{ env.REVIEWER_TEAM }}
   validate:
     name: Validate issue
     runs-on: ubuntu-20.04
@@ -36,7 +37,7 @@ jobs:
         authentication: app
         application-id: ${{ secrets.APP_ID }}
         application-private-key: ${{ secrets.APP_PEM }}
-        team-assign: ${{ env.LGTM_TEAM }}
+        team-assign: ${{ env.APPROVAL_TEAM }}
   fulfill:
     name: Fulfill issue
     runs-on: ubuntu-20.04
@@ -53,7 +54,7 @@ jobs:
         authentication: app
         application-id: ${{ secrets.APP_ID }}
         application-private-key: ${{ secrets.APP_PEM }}
-        team-assign: ${{ env.LGTM_TEAM }}
+        team-assign: ${{ env.APPROVAL_TEAM }}
   finalize:
     name: Finalize & update Config File
     runs-on: ubuntu-20.04
