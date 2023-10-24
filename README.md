@@ -83,6 +83,12 @@ The Enterprise PAT route of gaining elevated access to an organization is that i
 
    - `administration`
    - `createrepo`
+   - `aws-account-approval`
+   - `aws-account-create`
+   - `aws-account-created`
+   - `aws-account-creation-approved`
+   - `aws-account-request`
+   - `completed`
 
 1. Create `.github` directory containing [issue forms and workflows from `assets` directory](assets)
 
