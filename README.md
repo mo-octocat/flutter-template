@@ -97,9 +97,7 @@ The Enterprise PAT route of gaining elevated access to an organization is that i
        ├── ISSUE_TEMPLATE
        │   └── createrepo.yml
        └── workflows
-           ├── createrepo_assign.yml
-           ├── createrepo_fulfill.yml
-           └── createrepo_validate.yml
+           ├── workflow.yml
    ```
 
 1. Update the list of organizations in **repository-owner** field within `.github/ISSUE_TEMPLATE/createrepo.yml`:
