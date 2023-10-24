@@ -5,8 +5,8 @@ on:
   workflow_dispatch:
 
 env:
-  REVIEWER_TEAM: "aws-account-approval-team"
-  APPROVAL_TEAM: "aws-account-approval-team"
+  REVIEWER_TEAM: aws-account-approval-team
+  APPROVAL_TEAM: aws-account-approval-team
 jobs:
   assign:
     name: Assign new issue
