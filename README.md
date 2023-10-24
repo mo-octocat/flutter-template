@@ -1,4 +1,4 @@
-# IssueOps for creating GitHub repositories
+# IssueOps for creating GitHub repositories and AWS Account
 
 ## Overview
 
