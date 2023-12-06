@@ -53,8 +53,8 @@ jobs:
     name: Fulfill issue
     runs-on: ubuntu-20.04
     needs: validate
-    # environment:
-    #     name: Production
+    environment:
+        name: Production
     if: contains(github.event.issue.labels.*.name, 'createrepo') && github.event.issue.state == 'open'
     steps:
     - name: Checkout
